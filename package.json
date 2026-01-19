@@ -16,6 +16,7 @@
     "@types/react-dom": "^19.2.3",
     "bootstrap": "^5.3.8",
     "csv-parse": "^6.1.0",
+    "gh-pages": "^6.3.0",
     "pixi-viewport": "^6.0.3",
     "pixi.js": "^8.15.0",
     "react": "^19.2.3",
@@ -27,7 +28,7 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-   "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
