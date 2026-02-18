@@ -68,6 +68,21 @@ code {
   background-color: #88E788;
 }
 
+.edit-btn {
+  font-size: 16px;
+  margin-top: "auto"
+}
+
+.edit-btn.err {
+  background-color: rgb(228, 100, 100);
+}
+
+.edit-btn.good {
+  background-color: #88E788;
+}
+
+
+
 .offcanvas {
 
 }

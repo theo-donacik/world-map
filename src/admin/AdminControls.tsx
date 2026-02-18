@@ -1,51 +1,32 @@
 import { useEffect, useState } from "react";
-import { Form, Stack } from "react-bootstrap";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { apiGetTimer, apiSetTimer } from "../dao/timer";
-import { TimerResponse } from "../util/types";
+import EditableBox from "../components/EditableBox";
+import SetTimer from "../components/SetTimer";
+import { apiGetAreas } from "../dao/area";
+import { Area, AreaResponse } from "../util/types";
 
 export default function AdminControls() {
-  const [startDate, setStartDate] = useState(new Date());
-  const [timerUpdated, setTimerUpdated] = useState(false);
+  const [areas, setAreas] = useState<Area[]>([]);
 
   useEffect(() => {
-    apiGetTimer()
-    .then((resp: TimerResponse) => {
-      setStartDate(new Date(resp.timer))
-    })
-    .catch(() => {
-      alert("Failed fetch timer")
-    });
+    apiGetAreas()
+      .then((resp: AreaResponse) => {
+        setAreas(resp.areas)
+      })
+      .catch(() => {
+        alert("Failed fetch areas")
+      });
   }, []);
 
-  function setTime() {
-    apiSetTimer(startDate)
-    .then((resp: TimerResponse) => {
-      setTimerUpdated(true)
-      setTimeout(() => setTimerUpdated(false), 5000)
-    })
-    .catch(() => {
-      alert("Failed to set timer")
-    });
-  }
 
   return (
     <div className="admin-controls">
       <h1 className="admin-header">
         Admin Controls
       </h1>
-      <Stack gap={3}>
-        <Form.Label>Set Countdown Timer</Form.Label>
-        <DatePicker
-          showTimeSelect
-          selected={startDate}
-          onChange={(date: Date | null) => date && setStartDate(date)}
-          minDate={new Date()}          
-          maxDate={new Date("3000-01-01T00:00:00+00:00")}
-        />
-        <button onClick={setTime} className={timerUpdated ? "updated-time-btn" : "time-btn"}>{timerUpdated ? "Time Updated" : "Set Time"}</button>
-      </Stack>
+      <SetTimer/>
+      {areas.map((area: Area) => (
+        <EditableBox area={area}/>
+      ))}
     </div>
   );
 }

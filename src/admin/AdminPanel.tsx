@@ -3,7 +3,7 @@ import AdminControls from "./AdminControls";
 import LoginPage from "./LoginPage";
 
 export default function AdminPanel() {
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
+  const [loggedIn, setLoggedIn] = useState<boolean>(true);
   
   return (
     <div>
