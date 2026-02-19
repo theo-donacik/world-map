@@ -19,7 +19,7 @@ export default function AdminControls() {
   }, []);
 
   function newArea() {
-    setAreas([...areas, {name: "", description: "", inviteLink: "", _id: "0"}])
+    setAreas([...areas, {name: "", description: "", inviteLink: "", interestedUsers:[], _id: "0"}])
   }
 
   return (

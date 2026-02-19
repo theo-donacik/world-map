@@ -11,12 +11,11 @@ export default function EditableBox({area}: {area: Area}) {
   const [editState, setEditState] = useState<number>(0)
 
   function editArea() {
-    console.log(name, desc, link)
     if(name === "" || desc === "" || link === "") {
       setEditState(1)
     }
     else if (area._id === "0"){
-      apiCreateArea(area)
+      apiCreateArea({name: name, description: desc, inviteLink: link, interestedUsers: [], _id: area._id})
       .then((resp: AreaResponse) => {
           setEditState(2)
           setTimeout(() => setEditState(0), 5000)

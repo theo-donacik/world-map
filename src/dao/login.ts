@@ -14,3 +14,15 @@ export async function apiLogin(
   });
   return r.data;
 }
+
+export async function apiCheckToken(token: string) {
+  const r = await axios.post(LOGIN_API + '/validate', {
+    token: token,
+  });
+  return r.data;
+} 
+
+export async function apiNewToken() {
+  const r = await axios.post(LOGIN_API + '/anon');
+  return r.data;
+} 

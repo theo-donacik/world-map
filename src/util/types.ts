@@ -20,11 +20,16 @@ export type ChannelResponse = {
   channel: DcChannel
 }
 
+export type TokenResponse = {
+  token: string
+}
+
 export type Area = {
   _id: string
   name: string;
   description: string;
   inviteLink: string;
+  interestedUsers: string[]
 }
 
 export type DcChannel = {

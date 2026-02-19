@@ -10,7 +10,7 @@ export async function apiGetAreas() {
 }
 
 export async function apiEditArea(
-  area: Area
+  area: Partial<Area>
 ) {
   const r = await axios.post(AREA_API + '/edit', {
     id: area._id,
@@ -18,6 +18,18 @@ export async function apiEditArea(
   });
   return r.data;
 }
+
+export async function apiAddInterest(
+  id: string,
+  token: string
+) {
+  const r = await axios.post(AREA_API + '/interest', {
+    id: id,
+    token: token
+  });
+  return r.data;
+}
+
 
 export async function apiCreateArea(
   area: Area

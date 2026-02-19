@@ -82,11 +82,21 @@ code {
   margin-top: "auto"
 }
 
+
 .edit-btn.err {
   background-color: rgb(228, 100, 100);
 }
 
 .edit-btn.good {
+  background-color: #88E788;
+}
+
+.int-btn {
+  font-size: 16px;
+  margin-top: auto;
+}
+
+.int-btn.int {
   background-color: #88E788;
 }
 
@@ -113,8 +123,6 @@ code {
   align-items: center;
   align-self: center;
 }
-
-
 
 .offcanvas {
 
