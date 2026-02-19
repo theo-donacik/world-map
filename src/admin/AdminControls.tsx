@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import ChannelPicker from "../components/ChannelPicker";
 import EditableBox from "../components/EditableBox";
 import SetTimer from "../components/SetTimer";
 import { apiGetAreas } from "../dao/area";
@@ -17,16 +18,22 @@ export default function AdminControls() {
       });
   }, []);
 
+  function newArea() {
+    setAreas([...areas, {name: "", description: "", inviteLink: "", _id: "0"}])
+  }
 
   return (
     <div className="admin-controls">
-      <h1 className="admin-header">
-        Admin Controls
-      </h1>
-      <SetTimer/>
-      {areas.map((area: Area) => (
-        <EditableBox area={area}/>
-      ))}
+      <div className="admin-horizontal">
+        <SetTimer/>
+        <ChannelPicker/>
+      </div>
+      <div className="edit-boxes">
+        {areas.map((area: Area) => (
+          <EditableBox area={area}/>
+        ))}
+        <button className="add-btn" onClick={newArea}>Add New Area</button>
+      </div>
     </div>
   );
 }

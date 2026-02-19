@@ -18,3 +18,10 @@ export async function apiEditArea(
   });
   return r.data;
 }
+
+export async function apiCreateArea(
+  area: Area
+) {
+  const r = await axios.post(AREA_API, {name: area.name, description: area.description, inviteLink: area.inviteLink});
+  return r.data;
+}

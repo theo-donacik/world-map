@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
-import { apiEditArea } from '../dao/area';
+import { apiCreateArea, apiEditArea } from '../dao/area';
 import { Area, AreaResponse } from "../util/types";
 
 export default function EditableBox({area}: {area: Area}) {
@@ -11,8 +11,20 @@ export default function EditableBox({area}: {area: Area}) {
   const [editState, setEditState] = useState<number>(0)
 
   function editArea() {
+    console.log(name, desc, link)
     if(name === "" || desc === "" || link === "") {
       setEditState(1)
+    }
+    else if (area._id === "0"){
+      apiCreateArea(area)
+      .then((resp: AreaResponse) => {
+          setEditState(2)
+          setTimeout(() => setEditState(0), 5000)
+        })
+        .catch(() => {
+          setEditState(1)
+          setTimeout(() => setEditState(0), 5000)
+        });
     }
     else {
       apiEditArea({name: name, description: desc, inviteLink: link, _id: area._id})

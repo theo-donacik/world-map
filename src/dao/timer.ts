@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_BASE = process.env.REACT_APP_API_BASE
-const TIMER_API = API_BASE+'/timer'
+const TIMER_API = API_BASE+'/state/timer'
 
 export async function apiSetTimer(
   timer: Date

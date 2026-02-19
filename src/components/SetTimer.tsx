@@ -32,16 +32,16 @@ export default function SetTimer() {
 
 
   return (
-    <Stack gap={3}>
+    <Stack className="set-timer" gap={2}>
       <Form.Label>Set Countdown Timer</Form.Label>
-      <DatePicker
-        showTimeSelect
-        selected={startDate}
-        onChange={(date: Date | null) => date && setStartDate(date)}
-        minDate={new Date()}          
-        maxDate={new Date("3000-01-01T00:00:00+00:00")}
-      />
-      <button onClick={setTime} className={timerUpdated ? "updated-time-btn" : "time-btn"}>{timerUpdated ? "Time Updated" : "Set Time"}</button>
+        <DatePicker
+          showTimeSelect
+          selected={startDate}
+          onChange={(date: Date | null) => date && setStartDate(date)}
+          minDate={new Date()}          
+          maxDate={new Date("3000-01-01T00:00:00+00:00")}
+        />
+        <button onClick={setTime} className={"time-btn " + (timerUpdated ? "updated" : "")}>{timerUpdated ? "Time Updated" : "Set Time"}</button>
     </Stack>
   )
 }
