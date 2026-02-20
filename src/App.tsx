@@ -41,13 +41,12 @@ function App() {
     else {
       hasMounted.current = true;
     }
-
   },[])
 
   function getPage() {
     if (window.location.pathname === '/world-map' || window.location.pathname === '/world-map/'){
-      //return <MapApp/>
-      {tokenLoaded && <BoxesMap/>}
+      //<MapApp/>
+      return (tokenLoaded && <BoxesMap/>)
     }
     else if (window.location.pathname === '/world-map/admin'){
       return <AdminPanel/>

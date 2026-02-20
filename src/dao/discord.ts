@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getAuthHeader } from "../util/constnats";
 import { DcChannel } from "../util/types";
 
 const API_BASE = process.env.REACT_APP_API_BASE
@@ -10,8 +11,8 @@ export async function apiSetChannel(
 ) {
   const r = await axios.post(CHANNEL_STATE_API, {
     channelId: channel.id,
-    channelName: channel.name
-  });
+    channelName: channel.name,
+  }, getAuthHeader());
   return r.data;
 }
 
@@ -21,6 +22,6 @@ export async function apiGetChannel() {
 }
 
 export async function apiGetAllChannels() {
-  const r = await axios.get(CHANNEL_LIST_API);
+  const r = await axios.get(CHANNEL_LIST_API, getAuthHeader());
   return r.data;
 }

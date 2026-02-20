@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getAuthHeader } from "../util/constnats";
 
 const API_BASE = process.env.REACT_APP_API_BASE
 const TIMER_API = API_BASE+'/state/timer'
@@ -8,7 +9,7 @@ export async function apiSetTimer(
 ) {
   const r = await axios.post(TIMER_API, {
     timer: timer
-  });
+  }, getAuthHeader());
   return r.data;
 }
 

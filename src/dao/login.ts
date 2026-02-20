@@ -26,3 +26,10 @@ export async function apiNewToken() {
   const r = await axios.post(LOGIN_API + '/anon');
   return r.data;
 } 
+
+export async function apiValidateAdminToken(token: string) {
+  const r = await axios.post(LOGIN_API + '/validateAdmin', {
+    token: token 
+  });
+  return r.data;
+} 
