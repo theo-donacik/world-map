@@ -9,15 +9,18 @@ import { TokenResponse } from './util/types';
 function App() {
   const hasMounted = useRef<boolean>(false);
   const [tokenLoaded, setTokenLoaded] = useState<boolean>(false)
+  const [debug, setDebug] = useState<string>("debug")
 
   function generateNewToken() {
+    setDebug(debug + " generating token " + process.env.REACT_APP_API_BASE)
     console.log("generating token")
     apiNewToken()
     .then((resp: TokenResponse) => {
       localStorage.setItem(token_key, resp.token)
       setTokenLoaded(true)
     })
-    .catch(() => {
+    .catch((e) => {
+      setDebug(debug + " got error " + e + process.env.REACT_APP_API_BASE)
       alert("Failed to create new token")
     }); 
   }
@@ -47,7 +50,8 @@ function App() {
   function getPage() {
     if (window.location.pathname === '/world-map' || window.location.pathname === '/world-map/'){
       //<MapApp/>
-      return (tokenLoaded && <BoxesMap/>)
+      //return (tokenLoaded && <BoxesMap/>)
+      return (<div>{debug}</div>)
     }
     else if (window.location.pathname === '/world-map/admin'){
       return <AdminPanel/>
