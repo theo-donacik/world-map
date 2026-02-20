@@ -40,17 +40,12 @@ function App() {
   },[])
 
   function getPage() {
-    if (window.location.pathname === '/world-map' || window.location.pathname === '/world-map/'){
-      //<MapApp/>
-      return (tokenLoaded && <BoxesMap/>)
-    }
-    else if (window.location.pathname === '/world-map/admin'){
+    if (window.location.hash === '#/admin'){
       return <AdminPanel/>
     }
     else {
-      return(
-        <text>Page not found</text>
-      );
+      //<MapApp/>
+      return (tokenLoaded && <BoxesMap/>)
     }
   }
 
