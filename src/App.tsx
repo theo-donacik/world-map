@@ -7,51 +7,42 @@ import { token_key } from './util/constnats';
 import { TokenResponse } from './util/types';
 
 function App() {
-  const hasMounted = useRef<boolean>(false);
   const [tokenLoaded, setTokenLoaded] = useState<boolean>(false)
-  const [debug, setDebug] = useState<string>("debug")
 
   function generateNewToken() {
-    setDebug(debug + " generating token " + process.env.REACT_APP_API_BASE)
-    console.log("generating token")
     apiNewToken()
     .then((resp: TokenResponse) => {
       localStorage.setItem(token_key, resp.token)
       setTokenLoaded(true)
     })
     .catch((e) => {
-      setDebug(debug + " got error " + e + process.env.REACT_APP_API_BASE)
       alert("Failed to create new token")
     }); 
   }
 
   useEffect(() => {
-    if(hasMounted.current) {
-      const token = localStorage.getItem(token_key)
+    const token = localStorage.getItem(token_key)
 
-      if(token) {
-        apiCheckToken(token)
-        .then((resp: TokenResponse) => {
-          setTokenLoaded(true)
-        })
-        .catch(() => {
-          generateNewToken()
-        }); 
-      }
-      else {
+    if(token) {
+      apiCheckToken(token)
+      .then((resp: TokenResponse) => {
+        setTokenLoaded(true)
+      })
+      .catch(() => {
         generateNewToken()
-      }
+      }); 
     }
     else {
-      hasMounted.current = true;
+      generateNewToken()
     }
+    
+
   },[])
 
   function getPage() {
     if (window.location.pathname === '/world-map' || window.location.pathname === '/world-map/'){
       //<MapApp/>
-      //return (tokenLoaded && <BoxesMap/>)
-      return (<div>{debug}</div>)
+      return (tokenLoaded && <BoxesMap/>)
     }
     else if (window.location.pathname === '/world-map/admin'){
       return <AdminPanel/>
