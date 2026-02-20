@@ -23,6 +23,7 @@ export async function apiCheckToken(token: string) {
 } 
 
 export async function apiNewToken() {
+  console.log("API BASE:", API_BASE)
   const r = await axios.post(LOGIN_API + '/anon');
   return r.data;
 } 

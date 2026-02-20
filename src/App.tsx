@@ -11,6 +11,7 @@ function App() {
   const [tokenLoaded, setTokenLoaded] = useState<boolean>(false)
 
   function generateNewToken() {
+    console.log("generating token")
     apiNewToken()
     .then((resp: TokenResponse) => {
       localStorage.setItem(token_key, resp.token)
