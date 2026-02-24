@@ -20,6 +20,15 @@ export async function apiEditArea(
   return r.data;
 }
 
+export async function apiDeleteArea(
+  id: string
+) {
+  const r = await axios.post(AREA_API + '/delete', {
+    id: id,
+  }, getAuthHeader());
+  return r.data;
+}
+
 export async function apiAddInterest(
   id: string,
   token: string

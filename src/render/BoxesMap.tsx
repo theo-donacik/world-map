@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GlobalTimer from "../components/GlobalTimer";
 import InteractBox from "../components/InteractBox";
+import NavToAdminBtn from "../components/NavToAdminBtn";
 import { apiGetAreas } from "../dao/area";
 import { apiGetTimer } from "../dao/timer";
 import { token_key } from "../util/constnats";
@@ -33,6 +34,7 @@ export default function BoxesMap() {
 
   return(
     <div style={{width:"100%"}}>
+      <NavToAdminBtn/>
       <GlobalTimer time={timer}/>
       <br></br>
       <div style={{width:"100%"}} className="d-flex flex-wrap justify-content-center gap-5">

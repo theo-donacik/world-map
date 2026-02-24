@@ -82,6 +82,15 @@ code {
   margin-top: "auto"
 }
 
+.delete-btn {
+  font-size: 16px;
+  margin-top: "auto";
+  background-color: rgb(228, 100, 100);
+}
+
+.card-body {
+  padding: 10px;
+}
 
 .edit-btn.err {
   background-color: rgb(228, 100, 100);
@@ -94,6 +103,13 @@ code {
 .int-btn {
   font-size: 16px;
   margin-top: auto;
+}
+
+.nav-btn {
+position: absolute;
+  top: 10px;
+  left: 20px;
+
 }
 
 .int-btn.int {

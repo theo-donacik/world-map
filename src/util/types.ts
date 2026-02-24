@@ -8,8 +8,20 @@ export type AreaResponse = {
   areas: [Area]
 }
 
+export type OneAreaResponse = {
+  area: Area
+}
+
 export type TimerResponse = {
   timer: Date
+}
+
+export type InterestResponse = {
+  interestNum: number
+}
+
+export type MessageResponse = {
+  alertMessage: string
 }
 
 export type AllChannelsResponse = {

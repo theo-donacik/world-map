@@ -7,6 +7,7 @@ import LoginPage from "./LoginPage";
 export default function AdminPanel() {
   const [loggedIn, setLoggedIn] = useState<boolean>(false);
 
+
   useEffect(() => {
     const adminToken = localStorage.getItem(admin_token_key)
     if(adminToken) {

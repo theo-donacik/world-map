@@ -35,8 +35,6 @@ function App() {
     else {
       generateNewToken()
     }
-    
-
   },[])
 
   function getPage() {

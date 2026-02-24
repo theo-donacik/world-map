@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import ChannelPicker from "../components/ChannelPicker";
 import EditableBox from "../components/EditableBox";
+import InterestThresholdSet from "../components/InterestThresholdSet";
+import MessageSet from "../components/MessageSet";
+import NavToMainBtn from "../components/NavToMainBtn";
 import SetTimer from "../components/SetTimer";
 import { apiGetAreas } from "../dao/area";
 import { Area, AreaResponse } from "../util/types";
@@ -24,9 +26,11 @@ export default function AdminControls() {
 
   return (
     <div className="admin-controls">
+      <NavToMainBtn/>
       <div className="admin-horizontal">
         <SetTimer/>
-        <ChannelPicker/>
+        <InterestThresholdSet/>
+        <MessageSet/>
       </div>
       <div className="edit-boxes">
         {areas.map((area: Area) => (
