@@ -8,6 +8,7 @@ import { TokenResponse } from './util/types';
 
 function App() {
   const [tokenLoaded, setTokenLoaded] = useState<boolean>(false)
+  const [route, setRoute] = useState(window.location.hash);
 
   function generateNewToken() {
     apiNewToken()
@@ -20,7 +21,7 @@ function App() {
     }); 
   }
 
-  useEffect(() => {
+  useEffect(() => {    
     const token = localStorage.getItem(token_key)
 
     if(token) {
@@ -37,8 +38,20 @@ function App() {
     }
   },[])
 
+  useEffect(() => {
+    function handleHashChange() {
+      setRoute(window.location.hash);
+    }
+
+    window.addEventListener("hashchange", handleHashChange);
+
+    return () => {
+      window.removeEventListener("hashchange", handleHashChange);
+    };
+  }, []);
+
   function getPage() {
-    if (window.location.hash === '#/admin'){
+    if (route === '#/admin'){
       return <AdminPanel/>
     }
     else {
