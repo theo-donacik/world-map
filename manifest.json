@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "D&D Map",
+  "name": "Interactive D&D Map",
   "icons": [
     {
       "src": "favicon.ico",
