@@ -2,29 +2,56 @@ import { useEffect, useState } from 'react';
 import { Form, Modal, Stack } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { apiCreateArea, apiDeleteArea, apiEditArea } from '../dao/area';
-import { Area, AreaResponse, OneAreaResponse } from "../util/types";
+import { apiGetImage, apiUploadImage } from '../dao/files';
+import { Area, AreaResponse, FileKeyResponse, OneAreaResponse } from "../util/types";
+import ImagePicker from './ImagePicker';
 
-export default function EditableBox({area}: {area: Area}) {
-  const [name, setName] = useState<string>(area.name)
-  const [desc, setDesc] = useState<string>(area.description)
-  const [link, setLink] = useState<string>(area.inviteLink)
+export default function EditableBox({a}: {a: Area}) {
   const [modalShow, setModalShow] = useState(false);
   const [editState, setEditState] = useState<number>(0)
-  const [stateArea, setStateArea] = useState<Area | null>(area);
+  const [area, setArea] = useState<Area>(a);
+  const [areaDeleted, setAreaDeleted] = useState<boolean>(false);
+  const [file, setFile] = useState<File | undefined>()
 
   useEffect(() => {
-    setStateArea(area)
-  }, [area])
+    if(a.fileKey) {
+      apiGetImage(a.fileKey).then((resp: File) => {
+        setFile(resp)
+      })
+    }
+  }, [a])
+  
+  useEffect(() => {
+  }, [file])
 
-  function editArea() {
-    if(name === "" || desc === "" || link === "") {
+  function handleSave() {
+    if(area.name === "" || area.description === "" || area.inviteLink === "") {
       setEditState(1)
       setTimeout(() => setEditState(0), 3000)
+      return 
     }
-    else if (stateArea!._id === "0"){
-      apiCreateArea({name: name, description: desc, inviteLink: link, interestedUsers: [], _id: area._id})
+
+    console.log(file, file?.name, a.fileKey)
+    if(file && file.name) {
+      apiUploadImage(file).then((resp: FileKeyResponse) => {
+        setArea({...area, fileKey: resp.key})
+        editArea({...area, fileKey: resp.key})
+      })
+      .catch(() => {
+        alert("Failed to upload file!")
+      })
+    }
+    else {
+      editArea(area)
+    }
+  }
+
+
+  function editArea(area: Area) {
+    if (area._id === "0"){      
+      apiCreateArea(area)
       .then((resp: OneAreaResponse) => {
-          setStateArea(resp.area)
+          setArea(resp.area)
           setEditState(2)
           setTimeout(() => setEditState(0), 3000)
         })
@@ -34,9 +61,9 @@ export default function EditableBox({area}: {area: Area}) {
         });
     }
     else {
-      apiEditArea({name: name, description: desc, inviteLink: link, _id: area._id})
+      apiEditArea(area)
       .then((resp: OneAreaResponse) => {
-          setStateArea(resp.area)
+          setArea(resp.area)
           setEditState(2)
           setTimeout(() => setEditState(0), 3000)
         })
@@ -48,49 +75,48 @@ export default function EditableBox({area}: {area: Area}) {
   }
 
   function deleteArea() {
-    if(stateArea){
-      apiDeleteArea(stateArea._id)
+    if(area._id !== "0"){
+      apiDeleteArea(area._id)
       .then((resp: AreaResponse) => {
           setModalShow(false)
-          setStateArea(null)
+          setAreaDeleted(true)
         })
         .catch(() => {
           alert("Failed to delete area")
         });
     }
-
   }
 
-
   return (
-    stateArea &&
+    areaDeleted ? <></> : 
     <Card>
-      <Card.Img variant="top" src={""}/>
+      <Card.Img variant="top" src={file ? URL.createObjectURL(file) : ""}/>
+      <ImagePicker file={file} setFile={setFile}/>
       <Card.Body>
         <Form.Control
           placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={area.name}
+          onChange={(e) => setArea({...area, name: e.target.value})}
         /> 
         <Form.Control
           placeholder="Description"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
+          value={area.description}
+          onChange={(e) => setArea({...area, description: e.target.value})}
         />
         <Form.Control
           placeholder="Invite Link"
-          value={link}
-          onChange={(e) => setLink(e.target.value)}
+          value={area.inviteLink}
+          onChange={(e) => setArea({...area, inviteLink: e.target.value})}
         />
 
         <Stack direction="horizontal" gap={3}>
           <button
             className={'edit-btn ' + (editState === 0 ? "" : editState === 1 ? "err" : "good")}
-            onClick={editArea}
+            onClick={handleSave}
           >
             {editState === 0 ? "Save" : editState === 1 ? "Inputs cannot be blank" : "Saved!"}
           </button>
-          {!(stateArea!._id === "0") && 
+          {!(area._id === "0") && 
             <button
               className={'ms-auto delete-btn'}
               onClick={() => setModalShow(true)}

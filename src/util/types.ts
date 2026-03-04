@@ -12,6 +12,10 @@ export type OneAreaResponse = {
   area: Area
 }
 
+export type FileKeyResponse = {
+  key: string
+}
+
 export type TimerResponse = {
   timer: Date
 }
@@ -41,7 +45,8 @@ export type Area = {
   name: string;
   description: string;
   inviteLink: string;
-  interestedUsers: string[]
+  interestedUsers: string[];
+  fileKey?: string | null | undefined
 }
 
 export type DcChannel = {

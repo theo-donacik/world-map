@@ -34,7 +34,7 @@ export default function AdminControls() {
       </div>
       <div className="edit-boxes">
         {areas.map((area: Area) => (
-          <EditableBox area={area}/>
+          <EditableBox a={area}/>
         ))}
         <button className="add-btn" onClick={newArea}>Add New Area</button>
       </div>

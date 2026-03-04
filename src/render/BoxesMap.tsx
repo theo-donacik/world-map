@@ -40,7 +40,6 @@ export default function BoxesMap() {
       <div style={{width:"100%"}} className="d-flex flex-wrap justify-content-center gap-5">
         {areas.map(area =>(
           <InteractBox 
-            img="/world-map/img/green.png"
             area={area}
             userToken={token}
           />
