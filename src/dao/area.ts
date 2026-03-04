@@ -1,5 +1,5 @@
 import axios from "axios";
-import { admin_token_key, getAuthHeader } from "../util/constnats";
+import { getAuthHeader } from "../util/constnats";
 import { Area } from "../util/types";
 
 const API_BASE = process.env.REACT_APP_API_BASE
@@ -44,10 +44,7 @@ export async function apiAddInterest(
 export async function apiCreateArea(
   area: Area
 ) {
-  const r = await axios.post(AREA_API, {
-    name: area.name,
-    description: area.description,
-    inviteLink: area.inviteLink,
-  }, getAuthHeader());
+  const {_id, ...areaNoId} = area;
+  const r = await axios.post(AREA_API, areaNoId, getAuthHeader());
   return r.data;
 }

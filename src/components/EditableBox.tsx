@@ -31,10 +31,8 @@ export default function EditableBox({a}: {a: Area}) {
       return 
     }
 
-    console.log(file, file?.name, a.fileKey)
     if(file && file.name) {
       apiUploadImage(file).then((resp: FileKeyResponse) => {
-        setArea({...area, fileKey: resp.key})
         editArea({...area, fileKey: resp.key})
       })
       .catch(() => {
@@ -48,7 +46,7 @@ export default function EditableBox({a}: {a: Area}) {
 
 
   function editArea(area: Area) {
-    if (area._id === "0"){      
+    if (area._id === "0"){  
       apiCreateArea(area)
       .then((resp: OneAreaResponse) => {
           setArea(resp.area)
@@ -90,7 +88,7 @@ export default function EditableBox({a}: {a: Area}) {
   return (
     areaDeleted ? <></> : 
     <Card>
-      <Card.Img variant="top" src={file ? URL.createObjectURL(file) : ""}/>
+      <Card.Img variant="top" src={file ? URL.createObjectURL(file) : undefined}/>
       <ImagePicker file={file} setFile={setFile}/>
       <Card.Body>
         <Form.Control
