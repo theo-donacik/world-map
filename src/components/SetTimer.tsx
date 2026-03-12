@@ -41,7 +41,7 @@ export default function SetTimer() {
           minDate={new Date()}          
           maxDate={new Date("3000-01-01T00:00:00+00:00")}
         />
-        <button onClick={setTime} className={"time-btn " + (timerUpdated ? "updated" : "")}>{timerUpdated ? "Time Updated" : "Set Time"}</button>
+        <button onClick={setTime} className={"btn btn-primary " + (timerUpdated ? "success" : "")}>{timerUpdated ? "Time Updated" : "Set Time"}</button>
     </Stack>
   )
 }

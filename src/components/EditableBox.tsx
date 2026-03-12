@@ -109,14 +109,14 @@ export default function EditableBox({a}: {a: Area}) {
 
         <Stack direction="horizontal" gap={3}>
           <button
-            className={'edit-btn ' + (editState === 0 ? "" : editState === 1 ? "err" : "good")}
+            className={'btn btn-primary ' + (editState === 0 ? "" : editState === 1 ? "failure" : "success")}
             onClick={handleSave}
           >
             {editState === 0 ? "Save" : editState === 1 ? "Inputs cannot be blank" : "Saved!"}
           </button>
           {!(area._id === "0") && 
             <button
-              className={'ms-auto delete-btn'}
+              className={'btn btn-primary ms-auto failure'}
               onClick={() => setModalShow(true)}
             >
               Delete
@@ -143,9 +143,9 @@ export default function EditableBox({a}: {a: Area}) {
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <button onClick={() => {setModalShow(false)}}>Cancel</button>
+          <button className="btn btn-primary" onClick={() => {setModalShow(false)}}>Cancel</button>
           <button 
-            className='delete-btn'
+            className='btn btn-primary failure'
             onClick={deleteArea}>
               Delete
           </button>

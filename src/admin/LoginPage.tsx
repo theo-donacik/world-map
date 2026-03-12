@@ -44,7 +44,7 @@ export default function LoginPage({setLoggedIn}: {setLoggedIn: (isLogged: boolea
         </Form.Group>
         {loginFail && <p>Invalid Username Or Password</p>}
       </Form>
-      <button onClick={handleLogin}>
+      <button className="btn btn-primary" onClick={handleLogin}>
         Log In
       </button>
     </div>

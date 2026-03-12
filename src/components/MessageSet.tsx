@@ -88,7 +88,7 @@ export default function MessageSet() {
           onChange={(e) => setMessage(e.target.value)}
         />
         <button
-          className={'edit-btn ' + (saveState === 0 ? "" : saveState === 1 ? "err" : "good")}
+          className={'btn btn-primary ' + (saveState === 0 ? "" : saveState === 1 ? "failure" : "success")}
           onClick={saveMessage}
         >
           {saveState === 0 ? "Save" : saveState === 1 ? "Message cannot be blank" : "Saved!"}

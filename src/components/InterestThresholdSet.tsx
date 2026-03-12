@@ -49,7 +49,7 @@ export default function InterestThresholdSet() {
           onChange={(e) => setInterestNum((Number)(e.target.value) ?? 1)}
         />
         <button
-          className={'edit-btn ' + (saveState === 0 ? "" : saveState === 1 ? "err" : "good")}
+          className={'btn btn-primary ' + (saveState === 0 ? "" : saveState === 1 ? "failure" : "success")}
           onClick={saveInterestNum}
         >
           {saveState === 0 ? "Save" : saveState === 1 ? "Threshold must be >0" : "Saved!"}

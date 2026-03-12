@@ -73,47 +73,34 @@ code {
   top: 5%;
 }
 
-.time-btn.updated {
+.btn.success {
   background-color: #88E788;
+  color: black;
 }
 
-.edit-btn {
-  font-size: 16px;
-  margin-top: "auto"
+.btn.success:hover {
+  background-color: #88E788;
+  color: black;
 }
 
-.delete-btn {
-  font-size: 16px;
-  margin-top: "auto";
+.btn.failure {
   background-color: rgb(228, 100, 100);
+  color: black;
+}
+
+.btn.failure:hover {
+  background-color: rgb(228, 100, 100);
+  color: black;
 }
 
 .card-body {
   padding: 10px;
 }
 
-.edit-btn.err {
-  background-color: rgb(228, 100, 100);
-}
-
-.edit-btn.good {
-  background-color: #88E788;
-}
-
-.int-btn {
-  font-size: 16px;
-  margin-top: auto;
-}
-
 .nav-btn {
 position: absolute;
   top: 10px;
   left: 20px;
-
-}
-
-.int-btn.int {
-  background-color: #88E788;
 }
 
 .edit-boxes {
