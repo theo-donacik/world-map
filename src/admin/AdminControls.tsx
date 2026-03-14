@@ -26,7 +26,9 @@ export default function AdminControls() {
 
   return (
     <div className="admin-controls">
-      <NavToMainBtn/>
+      <div className="boxes-header">
+        <NavToMainBtn/>
+      </div>
       <div className="admin-horizontal">
         <SetTimer/>
         <InterestThresholdSet/>

@@ -33,9 +33,11 @@ export default function BoxesMap() {
   }, []);
 
   return(
-    <div style={{width:"100%"}}>
-      <NavToAdminBtn/>
-      <GlobalTimer time={timer}/>
+    <div className="boxes-container">
+      <div className="boxes-header">
+        <NavToAdminBtn/>
+        <GlobalTimer time={timer}/>
+      </div>
       <br></br>
       <div style={{width:"100%"}} className="d-flex flex-wrap justify-content-center gap-5">
         {areas.map(area =>(
