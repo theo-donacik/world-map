@@ -33,7 +33,7 @@ export default function InteractBox({area, userToken}: {area: Area, userToken: s
         <Card.Title className="fs-2">{area.name}</Card.Title>
         <Card.Text className="fs-5">{area.description}</Card.Text>
         <button
-         className={'btn btn-primary ' + (userIntersted ? "success" : "")}
+         className={'btn btn-primary interest-btn ' + (userIntersted ? "success" : "")}
         onClick={imInterested}>
           {userIntersted ?  "Interest noted" : "I'm Interested"  }
         </button>

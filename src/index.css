@@ -138,6 +138,10 @@ code {
   justify-self: center;
 }
 
+.interest-btn {
+  margin-top: auto;
+}
+
 .set-timer {
   justify-content: center;
   align-items: center;
