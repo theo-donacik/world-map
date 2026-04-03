@@ -106,7 +106,9 @@ export default function EditableBox({a}: {a: Area}) {
           value={area.inviteLink}
           onChange={(e) => setArea({...area, inviteLink: e.target.value})}
         />
-
+        <div>
+          Interested Users: {area.interestedUsers.length}
+        </div>
         <Stack direction="horizontal" gap={3}>
           <button
             className={'btn btn-primary ' + (editState === 0 ? "" : editState === 1 ? "failure" : "success")}
