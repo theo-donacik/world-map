@@ -39,6 +39,10 @@ export type RegionResponse = {
   parent: Region
 }
 
+export type RegionStateResponse = {
+  region: string
+}
+
 export type Area = {
   _id: string
   name: string;
