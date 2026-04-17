@@ -7,7 +7,6 @@ import {
   Sprite,
 } from 'pixi.js'
 import MapRegion from './MapRegion'
-import regions from '../regions.json'
 import { Region } from '../util/types'
 import { Viewport } from './Viewport'
 import { MapOverlay } from './MapOverlay'
@@ -19,23 +18,26 @@ extend({
   Sprite,
 })
 
-export default function MapContainer({setRegion}: {setRegion: (region: Region | false) => void}) {
+export default function MapContainer({selectRegion, subregions, parentRegion}: {selectRegion: (region: Region) => void, subregions: Region[], parentRegion: Region}) {
   const [isDragging, setIsDragging] = useState<boolean>(false)
-
+  
   return (
     <Viewport 
       screenHeight={window.innerHeight}
       screenWidth={window.innerWidth}
-      worldWidth={regions.width}
-      worldHeight={regions.height}
+      worldWidth={parentRegion.subregionWidth ?? 1000}
+      worldHeight={parentRegion.subregionHeight ?? 1000}
       setIsDragging={setIsDragging}
     >
       <pixiContainer eventMode='passive'/>
-        <MapOverlay/>
+        <MapOverlay src={parentRegion.subregionImg ?? 'bad-default-value'}/>
 
         <pixiContainer eventMode='passive' interactive={true}>
-          {(regions.regions as [Region]).map((region: Region) => {
-            return <MapRegion region={region} isDragging={isDragging} setRegion={setRegion}/>
+          {(subregions).map((region: Region) => {
+            return <MapRegion 
+                      region={region}
+                      isDragging={isDragging}
+                      selectRegion={selectRegion}/>
           })}
         </pixiContainer>
     </Viewport>

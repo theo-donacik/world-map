@@ -7,9 +7,14 @@ import {
   ResizePlugin,
   TickerPlugin,
 } from 'pixi.js'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { House } from 'react-bootstrap-icons'
+import GlobalTimer from '../components/GlobalTimer'
+import NavToAdminBtn from '../components/NavToAdminBtn'
 import RegionDrawer from '../components/RegionDrawer'
-import { Region } from '../util/types'
+import { apiGetRegion } from '../dao/region'
+import { apiGetTimer } from '../dao/timer'
+import { Region, RegionResponse, TimerResponse } from '../util/types'
 import MapContainer from './MapContainer'
 
 extend({
@@ -18,21 +23,74 @@ extend({
   TickerPlugin
 })
 
-export default function MapApp() {
-  const [selectedRegion, setRegion] = useState<Region | false>(false)
+export default function MapApp({defaultParentRegionId} : {defaultParentRegionId: string}) {
+  const [parentRegion, setParentRegion] = useState<Region | undefined>(undefined)
+  const [defaultParentRegion, setDefaultParentRegion] = useState<Region | undefined>(undefined)
+  const [subregions, setSubregions] = useState<Region[]>()
+  const [selectedRegion, setSelectedRegion] = useState<Region | false>(false)
+  const [timer, setTimer] = useState<Date>(new Date())
+
+  useEffect(() => {
+    apiGetRegion(parentRegion?._id ?? defaultParentRegionId)
+      .then((resp: RegionResponse) => {
+        if(!parentRegion) {
+          setDefaultParentRegion(resp.parent)
+          setParentRegion(resp.parent)
+        }
+        setSubregions(resp.subregions)
+      })
+      .catch(() => {
+      });
+  }, [parentRegion, defaultParentRegionId])
+
+  useEffect(() => {
+    apiGetTimer()
+    .then((resp: TimerResponse) => {
+        setTimer(new Date(resp.timer))
+      })
+      .catch(() => {
+        alert("Failed fetch timer")
+      });
+  }, []);
+
+  function selectRegion(region: Region) {
+    if(region.subregionImg) {
+      setParentRegion(region)
+    }
+    else {
+      setSelectedRegion(region)
+    }
+  }
+
+  function goHome() {
+    defaultParentRegion && setParentRegion(defaultParentRegion);
+  }
 
   return (
-    <div style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
-      <RegionDrawer region={selectedRegion} setRegion={setRegion}/>
-      <Application 
-        resizeTo={window}
-        background={'black'}
-        eventMode='passive'
-        width={window.innerWidth}
-        height={window.innerHeight}
-      >
-        <MapContainer setRegion={setRegion}/>
-      </Application>
+    <div>
+      <div className='map-header'>
+        <House onClick={goHome}/>
+        <GlobalTimer time={timer}/>
+        <NavToAdminBtn/>
+      </div>
+      <div style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
+        <RegionDrawer region={selectedRegion} onClose={() => setSelectedRegion(false)}/>
+        <Application 
+          resizeTo={window}
+          background='grey'
+          eventMode='passive'
+          width={window.innerWidth}
+          height={window.innerHeight}
+        >
+          {parentRegion && subregions &&
+            <MapContainer 
+              selectRegion={selectRegion}
+              subregions={subregions}
+              parentRegion={parentRegion}
+            />
+          }
+        </Application>
+      </div>
     </div>
   )
 }

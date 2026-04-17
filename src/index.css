@@ -91,6 +91,18 @@ code {
   top: 5%;
 }
 
+.map-header {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 30px;
+  padding-right: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
 .btn.success {
   background-color: #88E788;
   color: black;
@@ -116,10 +128,7 @@ code {
 }
 
 .nav-btn {
-  justify-self: center;
   margin-top: -10px;
-  padding-left: 2%;
-  padding-top: 2%;
 }
 
 .edit-boxes {

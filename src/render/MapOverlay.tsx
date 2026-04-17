@@ -7,20 +7,26 @@ import {
     useRef,
     useState,
 } from 'react';
+import { apiGetImage } from '../dao/files';
 
-export function MapOverlay() {
+export function MapOverlay({src}: {src: string}) {
     const spriteRef = useRef(null)
     const [texture, setTexture] = useState(Texture.EMPTY)
 
     useEffect(() => {
-        if (texture === Texture.EMPTY) {
+        apiGetImage(src).then((resp: File) => {
             Assets
-                .load('./img/world-map.png')
-                .then((result) => {
-                    setTexture(result)
-                });
-        }
-    }, [texture]);
+            .load({
+                src: URL.createObjectURL(resp),
+                format: 'png',
+                parser: 'loadTextures'
+            })
+            .then((result) => {
+                setTexture(result)
+            });
+        })
+        
+    }, [src]);
 
     return (
       <pixiSprite

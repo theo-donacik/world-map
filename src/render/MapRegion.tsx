@@ -13,8 +13,8 @@ extend({
   Graphics,
 })
 
-export default function MapRegion({region, isDragging, setRegion}: {region: Region, isDragging: boolean, setRegion: (region: Region | false) => void}) {
-  const drawCallback = useCallback((graphics: Graphics, vertices: [number]) => {
+export default function MapRegion({region, isDragging, selectRegion}: {region: Region, isDragging: boolean, selectRegion: (region: Region) => void}) {
+  const drawCallback = useCallback((graphics: Graphics, vertices: number[]) => {
     graphics.clear()
     graphics.poly(vertices)
     graphics.fill({ color: 'rgba(255, 0, 0, 0)'})
@@ -25,7 +25,7 @@ export default function MapRegion({region, isDragging, setRegion}: {region: Regi
       <pixiGraphics 
         eventMode='static'
         draw={(g) => drawCallback(g, region.vertices)}
-        onPointerUp={()=>{if(!isDragging) setRegion(region)}}
+        onPointerUp={()=>{if(!isDragging) selectRegion(region)}}
       />
     </>
   )

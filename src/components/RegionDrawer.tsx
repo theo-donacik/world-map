@@ -2,9 +2,9 @@ import { useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { Region } from '../util/types';
 
-export default function RegionDrawer({region, setRegion}: {region: (Region | false), setRegion: (region: Region | false) => void}) {
-  const [lastRegion, setLastRegion] = useState<Region>({name: "", description: "",  vertices: [0]});
-  const handleClose = () => {region && (setLastRegion(region)); setRegion(false);};
+export default function RegionDrawer({region, onClose}: {region: (Region | false), onClose: () => void}) {
+  const [lastRegion, setLastRegion] = useState<Partial<Region>>({name: "", description: ""});
+  const handleClose = () => {region && (setLastRegion(region)); onClose();};
 
   return (
     <div>      

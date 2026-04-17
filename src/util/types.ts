@@ -1,9 +1,3 @@
-export type Region = {
-  name: string;
-  description: string;
-  vertices: [number]
-}
-
 export type AreaResponse = {
   areas: [Area]
 }
@@ -40,6 +34,11 @@ export type TokenResponse = {
   token: string
 }
 
+export type RegionResponse = {
+  subregions: Region[]
+  parent: Region
+}
+
 export type Area = {
   _id: string
   name: string;
@@ -47,6 +46,18 @@ export type Area = {
   inviteLink: string;
   interestedUsers: string[];
   fileKey?: string | null | undefined
+}
+
+export type Region = {
+  _id: string
+  name: string
+  description: string
+  vertices: number[]
+  parentId: string
+  interestedUsers: string[]
+  subregionImg?: string | null | undefined
+  subregionWidth?: number | null | undefined
+  subregionHeight?: number | null | undefined
 }
 
 export type DcChannel = {

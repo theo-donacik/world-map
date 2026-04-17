@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import AdminPanel from './admin/AdminPanel';
 import './App.css';
 import { apiCheckToken, apiNewToken } from './dao/login';
 import BoxesMap from './render/BoxesMap';
+import MapApp from './render/MapApp';
 import { token_key } from './util/constnats';
 import { TokenResponse } from './util/types';
 
@@ -55,8 +56,7 @@ function App() {
       return <AdminPanel/>
     }
     else {
-      //<MapApp/>
-      return (tokenLoaded && <BoxesMap/>)
+      return (tokenLoaded && <MapApp defaultParentRegionId='69e2724466787c2b05a6f7e4'/>)
     }
   }
 
