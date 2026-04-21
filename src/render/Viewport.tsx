@@ -1,6 +1,6 @@
 import { Viewport as BaseViewport, type IViewportOptions } from "pixi-viewport";
 import { extend, useApplication } from "@pixi/react";
-import { type PropsWithChildren } from "react";
+import { useEffect, useRef, type PropsWithChildren } from "react";
 import { Application } from "pixi.js";
 
 type ViewportProps = Omit<IViewportOptions, "events"> & {setIsDragging: (isDragging: boolean) => void};
@@ -61,10 +61,26 @@ extend({ ViewportWrapper });
 function Viewport(props: PropsWithChildren<ViewportProps>) {
   const { children, ...rest } = props;
   const { app } = useApplication();
+  const viewportRef = useRef<BaseViewport | null>(null);
+
+  useEffect(() => {
+    const vp = viewportRef.current;
+    if (!vp) return;
+
+    vp.clamp({
+      left: -PADDING,
+      right: vp.worldWidth + PADDING,
+      top: -PADDING,
+      bottom: vp.worldHeight + PADDING,
+    });
+
+    vp.resize(vp.screenWidth, vp.screenHeight, rest.worldWidth ?? 1000, rest.worldHeight ?? 1000);
+
+  }, [rest.worldWidth, rest.worldHeight]);
 
   return (
     app?.renderer && (
-      <pixiViewportWrapper app={app} {...rest}>
+      <pixiViewportWrapper ref={viewportRef} app={app} {...rest}>
         {children}
       </pixiViewportWrapper>
     )

@@ -20,7 +20,8 @@ extend({
 
 export default function MapContainer({selectRegion, subregions, parentRegion}: {selectRegion: (region: Region) => void, subregions: Region[], parentRegion: Region}) {
   const [isDragging, setIsDragging] = useState<boolean>(false)
-  
+  const [regionLoading, setRegionLoading] = useState<boolean>(false) 
+
   return (
     <Viewport 
       screenHeight={window.innerHeight}
@@ -30,14 +31,15 @@ export default function MapContainer({selectRegion, subregions, parentRegion}: {
       setIsDragging={setIsDragging}
     >
       <pixiContainer eventMode='passive'/>
-        <MapOverlay src={parentRegion.subregionImg ?? 'bad-default-value'}/>
+        <MapOverlay src={parentRegion.subregionImg ?? 'bad-default-value'} setLoading={setRegionLoading}/>
 
         <pixiContainer eventMode='passive' interactive={true}>
           {(subregions).map((region: Region) => {
-            return <MapRegion 
+            if(regionLoading) {return}
+            return(<MapRegion 
                       region={region}
                       isDragging={isDragging}
-                      selectRegion={selectRegion}/>
+                      selectRegion={selectRegion}/>)
           })}
         </pixiContainer>
     </Viewport>

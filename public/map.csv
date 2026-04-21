@@ -1,0 +1,4 @@
+"r,g,b",name,description
+"237,77,150",Pinkland,This is a pink square (RGB corresponds to color map color)
+"77,78,237",Blue Bog,The blue rectangle next to it
+"80,237,77",Blob Palace,The green shape to test geometry

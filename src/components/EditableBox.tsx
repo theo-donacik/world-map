@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import { Form, Modal, Stack } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { apiCreateArea, apiDeleteArea, apiEditArea } from '../dao/area';
-import { apiGetImage, apiUploadImage } from '../dao/files';
-import { Area, AreaResponse, FileKeyResponse, OneAreaResponse } from "../util/types";
-import ImagePicker from './ImagePicker';
+import { apiGetImage, apiUploadFile } from '../dao/files';
+import { Area, AreaResponse, FileKeyResponse, FileType, OneAreaResponse } from "../util/types";
+import FilePicker from './FilePicker';
 
 export default function EditableBox({a}: {a: Area}) {
   const [modalShow, setModalShow] = useState(false);
@@ -32,7 +32,7 @@ export default function EditableBox({a}: {a: Area}) {
     }
 
     if(file && file.name) {
-      apiUploadImage(file).then((resp: FileKeyResponse) => {
+      apiUploadFile(file).then((resp: FileKeyResponse) => {
         editArea({...area, fileKey: resp.key})
       })
       .catch(() => {
@@ -89,7 +89,7 @@ export default function EditableBox({a}: {a: Area}) {
     areaDeleted ? <></> : 
     <Card>
       <Card.Img variant="top" src={file ? URL.createObjectURL(file) : undefined}/>
-      <ImagePicker file={file} setFile={setFile}/>
+      <FilePicker setFile={setFile} type={FileType.Image}/>
       <Card.Body>
         <Form.Control
           placeholder="Name"

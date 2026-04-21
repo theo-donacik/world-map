@@ -29,6 +29,7 @@
     "react-dom": "^19.2.3",
     "react-router-dom": "^7.13.1",
     "react-scripts": "5.0.1",
+    "react-spinner-overlay": "^0.1.33",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },

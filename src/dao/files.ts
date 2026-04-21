@@ -4,7 +4,7 @@ import { getAuthHeader } from "../util/constnats";
 const API_BASE = process.env.REACT_APP_API_BASE
 const FILES_API = API_BASE+'/files'
 
-export async function apiUploadImage(
+export async function apiUploadFile(
   image: File
 ) {
   const formData = new FormData();

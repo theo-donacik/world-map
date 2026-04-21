@@ -43,6 +43,11 @@ export type RegionStateResponse = {
   region: string
 }
 
+export enum FileType {
+  Image,
+  CSV
+}
+
 export type Area = {
   _id: string
   name: string;
@@ -59,6 +64,8 @@ export type Region = {
   vertices: number[]
   parentId: string
   interestedUsers: string[]
+  colorMapColor: string,
+  colorMapImg?: string | null | undefined,
   subregionImg?: string | null | undefined
   subregionWidth?: number | null | undefined
   subregionHeight?: number | null | undefined

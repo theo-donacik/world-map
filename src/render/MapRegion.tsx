@@ -17,7 +17,10 @@ export default function MapRegion({region, isDragging, selectRegion}: {region: R
   const drawCallback = useCallback((graphics: Graphics, vertices: number[]) => {
     graphics.clear()
     graphics.poly(vertices)
-    graphics.fill({ color: 'rgba(255, 0, 0, 0)'})
+    graphics.stroke({ color: 'rgba(0, 0, 0, 0.25)', width: 3})
+    graphics.fill({ color: 'rgba(217, 0, 255, 0)'})
+    //     graphics.fill({ color: `rgb(${Math.random()*255},${Math.random()*255},${Math.random()*255})`})
+
   }, [])
 
   return (

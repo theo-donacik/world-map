@@ -9,11 +9,13 @@ import {
 } from 'react';
 import { apiGetImage } from '../dao/files';
 
-export function MapOverlay({src}: {src: string}) {
+export function MapOverlay({src, setLoading}: {src: string, setLoading: (loading: boolean) => void}) {
     const spriteRef = useRef(null)
     const [texture, setTexture] = useState(Texture.EMPTY)
 
     useEffect(() => {
+        setLoading(true)
+        setTexture(Texture.EMPTY)
         apiGetImage(src).then((resp: File) => {
             Assets
             .load({
@@ -23,6 +25,7 @@ export function MapOverlay({src}: {src: string}) {
             })
             .then((result) => {
                 setTexture(result)
+                setLoading(false)
             });
         })
         
