@@ -26,7 +26,7 @@ extend({
 export default function MapApp({defaultParentRegionId} : {defaultParentRegionId: string}) {
   const [parentRegion, setParentRegion] = useState<Region | undefined>(undefined)
   const [defaultParentRegion, setDefaultParentRegion] = useState<Region | undefined>(undefined)
-  const [subregions, setSubregions] = useState<Region[]>()
+  const [subregions, setSubregions] = useState<Region[]>([])
   const [selectedRegion, setSelectedRegion] = useState<Region | false>(false)
   const [timer, setTimer] = useState<Date>(new Date())
 
@@ -92,7 +92,7 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
           width={window.innerWidth}
           height={window.innerHeight}
         >
-          {parentRegion && subregions &&
+          {parentRegion &&
             <MapContainer 
               selectRegion={selectRegion}
               subregions={subregions}
