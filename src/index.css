@@ -40,14 +40,13 @@ code {
 
 .clock {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   margin: 0 auto;
   padding: 0.375rem;
-  width: 100%;
   font-size: 5vw;
   font-weight: bold;
   width: 90%;
+  white-space: nowrap;
   font-size-adjust:inherit;
 }
 
