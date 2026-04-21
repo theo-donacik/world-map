@@ -119,7 +119,16 @@ export default function RegionEdit({defaultRegionId}: {defaultRegionId: string})
 
   if(!parentRegion?.colorMapImg || !parentRegion?.subregionImg) {
     return (
-      <button className="btn btn-primary" onClick={() => {setModalShow(true)}}>Add Region</button>
+      <div>
+        <button className="btn btn-primary" onClick={() => {setModalShow(true)}}>Add Region</button>
+        <CreateSubregionModal
+          title={"Create First Region"}
+          show={modalShow}
+          setShow={setModalShow}
+          onSave={handleNewMapSave}
+        />
+      </div>
+    
     )
   }
 
