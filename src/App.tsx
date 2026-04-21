@@ -9,37 +9,37 @@ import { token_key } from './util/constnats';
 import { RegionStateResponse, TokenResponse } from './util/types';
 
 function App() {
-  const [tokenLoaded, setTokenLoaded] = useState<boolean>(false)
+  //const [tokenLoaded, setTokenLoaded] = useState<boolean>(false)
   const [route, setRoute] = useState(window.location.hash);
   const [defaultRegion, setDefaultRegion] = useState<string>();
 
-  function generateNewToken() {
-    apiNewToken()
-    .then((resp: TokenResponse) => {
-      localStorage.setItem(token_key, resp.token)
-      setTokenLoaded(true)
-    })
-    .catch((e) => {
-      alert("Failed to create new token")
-    }); 
-  }
+  // function generateNewToken() {
+  //   apiNewToken()
+  //   .then((resp: TokenResponse) => {
+  //     localStorage.setItem(token_key, resp.token)
+  //     setTokenLoaded(true)
+  //   })
+  //   .catch((e) => {
+  //     alert("Failed to create new token")
+  //   }); 
+  // }
 
-  useEffect(() => {    
-    const token = localStorage.getItem(token_key)
+  // useEffect(() => {    
+  //   const token = localStorage.getItem(token_key)
 
-    if(token) {
-      apiCheckToken(token)
-      .then((resp: TokenResponse) => {
-        setTokenLoaded(true)
-      })
-      .catch(() => {
-        generateNewToken()
-      }); 
-    }
-    else {
-      generateNewToken()
-    }
-  },[])
+  //   if(token) {
+  //     apiCheckToken(token)
+  //     .then((resp: TokenResponse) => {
+  //       setTokenLoaded(true)
+  //     })
+  //     .catch(() => {
+  //       generateNewToken()
+  //     }); 
+  //   }
+  //   else {
+  //     generateNewToken()
+  //   }
+  // },[])
 
   useEffect(() => {
     function handleHashChange() {
@@ -68,7 +68,7 @@ function App() {
       return <AdminPanel/>
     }
     else {
-      return (tokenLoaded && defaultRegion && <MapApp defaultParentRegionId={defaultRegion}/>)
+      return (defaultRegion && <MapApp defaultParentRegionId={defaultRegion}/>)
     }
   }
 
