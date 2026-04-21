@@ -31,17 +31,27 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
   const [timer, setTimer] = useState<Date>(new Date())
 
   useEffect(() => {
-    apiGetRegion(parentRegion?._id ?? defaultParentRegionId)
+    apiGetRegion(defaultParentRegionId)
       .then((resp: RegionResponse) => {
-        if(!parentRegion) {
           setDefaultParentRegion(resp.parent)
           setParentRegion(resp.parent)
-        }
+          setSubregions(resp.subregions)
+      })
+      .catch(() => {
+        alert("Failed to fetch default region")
+      });
+  }, [defaultParentRegionId])
+
+  useEffect(() => {
+    if(!parentRegion) return;
+
+    apiGetRegion(parentRegion._id)
+      .then((resp: RegionResponse) => {
         setSubregions(resp.subregions)
       })
       .catch(() => {
       });
-  }, [parentRegion, defaultParentRegionId])
+  }, [parentRegion])
 
   useEffect(() => {
     apiGetTimer()
