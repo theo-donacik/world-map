@@ -35,7 +35,7 @@ export default function MapContainer({selectRegion, subregions, parentRegion}: {
 
         <pixiContainer eventMode='passive' interactive={true}>
           {(subregions).map((region: Region) => {
-            if(regionLoading) {return}
+            if(regionLoading) {return <></>}
             return(<MapRegion 
                       region={region}
                       isDragging={isDragging}

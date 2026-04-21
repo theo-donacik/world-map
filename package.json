@@ -1,7 +1,7 @@
 {
   "name": "map",
   "version": "0.1.0",
-  "homepage": "https://theo-donacik.github.io/world-map",
+  "homepage": "https://holomap.frii.site",
   "private": true,
   "dependencies": {
     "@pixi/react": "^8.1.0-alpha.1",
