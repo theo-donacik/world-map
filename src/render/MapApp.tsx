@@ -85,6 +85,7 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
       </div>
       <div style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
         <RegionDrawer region={selectedRegion} onClose={() => setSelectedRegion(false)}/>
+        {parentRegion && 
         <Application 
           resizeTo={window}
           background='grey'
@@ -92,14 +93,13 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
           width={window.innerWidth}
           height={window.innerHeight}
         >
-          {parentRegion &&
-            <MapContainer 
-              selectRegion={selectRegion}
-              subregions={subregions}
-              parentRegion={parentRegion}
-            />
-          }
+          <MapContainer 
+            selectRegion={selectRegion}
+            subregions={subregions}
+            parentRegion={parentRegion}
+          />
         </Application>
+        }
       </div>
     </div>
   )
