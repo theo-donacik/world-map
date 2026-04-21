@@ -92,7 +92,18 @@ export default function RegionEdit({defaultRegionId}: {defaultRegionId: string})
       });
     }
 
-    if(parentRegion?._id === "0") {
+    if(parentRegion && parentRegion?._id !== "0") {
+      apiCreateExistingRegion(parentRegion._id, background, colorMap, dataCSV)
+      .then((resp: RegionResponse) => {
+          setModalShow(false)
+          updateRegion(resp.parent._id)
+      })
+      .catch(() => {
+        alert("Failed to create region")
+      });
+    }
+
+    else {
       apiCreateNewRegion(background, colorMap, dataCSV)
         .then((resp: RegionStateResponse) => {
           apiSetDefaultRegionId(resp.region)
@@ -103,17 +114,7 @@ export default function RegionEdit({defaultRegionId}: {defaultRegionId: string})
         .catch(() => {
           alert("Failed to create new region")
         });
-    }
-    else if(parentRegion) {
-      apiCreateExistingRegion(parentRegion._id, background, colorMap, dataCSV)
-      .then((resp: RegionResponse) => {
-          setModalShow(false)
-          updateRegion(resp.parent._id)
-      })
-      .catch(() => {
-        alert("Failed to create region")
-      });
-    }
+    } 
     return;
   }
 
