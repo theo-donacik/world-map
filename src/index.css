@@ -42,8 +42,8 @@ code {
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  padding: 0.375rem;
-  font-size: 5vw;
+  padding: 1vh;
+  font-size: 4vw;
   font-weight: bold;
   width: 90%;
   white-space: nowrap;
