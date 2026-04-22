@@ -59,3 +59,14 @@ export async function apiSetDefaultRegionId(id: string) {
   }, getAuthHeader());
   return r.data;
 }
+
+export async function apiRegionAddInterest(
+  id: string,
+  token: string
+) {
+  const r = await axios.post(REGION_API + '/interest', {
+    id: id,
+    token: token
+  });
+  return r.data;
+}

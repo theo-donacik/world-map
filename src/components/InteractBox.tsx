@@ -7,7 +7,7 @@ import { Area, TokenResponse } from '../util/types';
 export default function InteractBox({area, userToken}: {area: Area, userToken: string}) {
   const [userIntersted, setUserInterested] = useState<boolean>(area.interestedUsers.includes(userToken))
   const [imageSrc, setImageSrc] = useState<string>("")
-
+  
   useEffect(() => {
     area.fileKey && apiGetImage(area.fileKey).then((resp: File) => {
       setImageSrc(URL.createObjectURL(resp))

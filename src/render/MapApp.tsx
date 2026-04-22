@@ -12,9 +12,11 @@ import { House } from 'react-bootstrap-icons'
 import GlobalTimer from '../components/GlobalTimer'
 import NavToAdminBtn from '../components/NavToAdminBtn'
 import RegionDrawer from '../components/RegionDrawer'
+import { apiCheckToken } from '../dao/discord'
 import { apiGetRegion } from '../dao/region'
 import { apiGetTimer } from '../dao/timer'
-import { Region, RegionResponse, TimerResponse } from '../util/types'
+import { token_key } from '../util/constnats'
+import { Region, RegionResponse, TimerResponse, TokenResponse } from '../util/types'
 import MapContainer from './MapContainer'
 
 extend({
@@ -29,6 +31,7 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
   const [subregions, setSubregions] = useState<Region[]>([])
   const [selectedRegion, setSelectedRegion] = useState<Region | false>(false)
   const [timer, setTimer] = useState<Date>(new Date())
+  const [userToken, setToken] = useState<string | false>(false)
 
   useEffect(() => {
     apiGetRegion(defaultParentRegionId)
@@ -63,6 +66,32 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
       });
   }, []);
 
+  useEffect(() => {
+    const handler = async (event: MessageEvent) => {
+      if (event.origin !== process.env.REACT_APP_FRONTEND_URL || event.data.source !== "oauth") return;
+
+      setToken(event.data.token)
+      localStorage.setItem(token_key, event.data.token)
+    };
+
+    window.addEventListener("message", handler);
+    return () => window.removeEventListener("message", handler);
+  }, []);
+
+  useEffect(() => {    
+    const token = localStorage.getItem(token_key)
+
+    if(token) {
+      apiCheckToken(token)
+      .then((resp: TokenResponse) => {
+        setToken(resp.token)
+      })
+      .catch(() => {
+        localStorage.removeItem(token_key)
+      }); 
+    }
+  },[])
+
   function selectRegion(region: Region) {
     if(region.subregionImg) {
       setParentRegion(region)
@@ -84,7 +113,7 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
         <NavToAdminBtn/>
       </div>
       <div style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
-        <RegionDrawer region={selectedRegion} onClose={() => setSelectedRegion(false)}/>
+        <RegionDrawer region={selectedRegion} onClose={() => setSelectedRegion(false)} userToken={userToken}/>
         {parentRegion && 
         <Application 
           resizeTo={window}

@@ -1,45 +1,14 @@
 import { useEffect, useState } from 'react';
 import AdminPanel from './admin/AdminPanel';
 import './App.css';
-import { apiCheckToken, apiNewToken } from './dao/login';
 import { apiGetDefaultRegionId } from './dao/region';
-import BoxesMap from './render/BoxesMap';
+import OauthCallback from './oauth/OauthCallback';
 import MapApp from './render/MapApp';
-import { token_key } from './util/constnats';
-import { RegionStateResponse, TokenResponse } from './util/types';
+import { RegionStateResponse } from './util/types';
 
 function App() {
-  //const [tokenLoaded, setTokenLoaded] = useState<boolean>(false)
   const [route, setRoute] = useState(window.location.hash);
   const [defaultRegion, setDefaultRegion] = useState<string>();
-
-  // function generateNewToken() {
-  //   apiNewToken()
-  //   .then((resp: TokenResponse) => {
-  //     localStorage.setItem(token_key, resp.token)
-  //     setTokenLoaded(true)
-  //   })
-  //   .catch((e) => {
-  //     alert("Failed to create new token")
-  //   }); 
-  // }
-
-  // useEffect(() => {    
-  //   const token = localStorage.getItem(token_key)
-
-  //   if(token) {
-  //     apiCheckToken(token)
-  //     .then((resp: TokenResponse) => {
-  //       setTokenLoaded(true)
-  //     })
-  //     .catch(() => {
-  //       generateNewToken()
-  //     }); 
-  //   }
-  //   else {
-  //     generateNewToken()
-  //   }
-  // },[])
 
   useEffect(() => {
     function handleHashChange() {
@@ -66,6 +35,9 @@ function App() {
   function getPage() {
     if (route === '#/admin'){
       return <AdminPanel/>
+    }
+    else if (route.includes('#/oauth')){
+      return <OauthCallback/>
     }
     else {
       return (defaultRegion && <MapApp defaultParentRegionId={defaultRegion}/>)

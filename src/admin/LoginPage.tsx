@@ -12,8 +12,13 @@ export default function LoginPage({setLoggedIn}: {setLoggedIn: (isLogged: boolea
   function handleLogin() {
     apiLogin(username, password)
     .then((resp: TokenResponse) => {
-      setLoggedIn(true)
-      localStorage.setItem(admin_token_key, resp.token)
+      if(resp.token) {
+        setLoggedIn(true)
+        localStorage.setItem(admin_token_key, resp.token)
+      }
+      else {
+        setLoginFail(true);
+      }
     })
     .catch(() => {
       setLoginFail(true);
