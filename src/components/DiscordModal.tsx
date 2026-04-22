@@ -5,7 +5,7 @@ export default function DiscordModal({show, setShow}: {show: boolean, setShow: (
   
   function handleClick() {
     try {
-      window.open("https://discord.com/oauth2/authorize?client_id=1474063428443308294&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fdiscord%2Fcallback&scope=identify", '_blank', 'width=600,height=700');
+      window.open(process.env.REACT_APP_DISCORD_REDIRECT_URI, '_blank', 'width=600,height=700');
     } catch (error) {
       alert('Error initiating Discord login window');
     }
