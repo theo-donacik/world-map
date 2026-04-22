@@ -3,24 +3,24 @@ import { useEffect, useState } from "react";
 export default function GlobalTimer({time}: {time: Date}) {
   const [distance, setDistance] = useState<number>(1)
 
-  function updateTime() {
-    const d = time.getTime() - new Date().getTime()
-    if(d > 0) {
-      setDistance(time.getTime() - new Date().getTime()); 
-    }
-    else if (d <= 0){
-      setDistance(0)
-    }
-  }
-
   useEffect(() => {
+    const updateTime = () => {
+      const d = time.getTime() - new Date().getTime()
+      if(d > 0) {
+        setDistance(time.getTime() - new Date().getTime()); 
+      }
+      else if (d <= 0){
+        setDistance(0)
+      }
+    }
+
+    updateTime()
+
+    const intervalId = setInterval(() => {
       updateTime()
+    }, 1000);
 
-      const intervalId = setInterval(() => {
-        updateTime()
-      }, 1000);
-
-      return () => clearInterval(intervalId);
+    return () => clearInterval(intervalId);
   }, [time]);
 
 

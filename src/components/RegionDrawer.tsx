@@ -4,7 +4,7 @@ import { apiRegionAddInterest } from '../dao/region';
 import { Region, TokenResponse } from '../util/types';
 import DiscordModal from './DiscordModal';
 
-export default function RegionDrawer({region, onClose, userToken}: {region: (Region | false), onClose: () => void, userToken: string | false}) {
+export default function RegionDrawer({region, onClose, userToken, onMarkInterest}: {region: (Region | false), onClose: () => void, userToken: string | false, onMarkInterest: ()=>void}) {
   const [lastRegion, setLastRegion] = useState<Partial<Region>>({name: "", description: ""});
   const [showDCLogin, setShowDCLogin] = useState<boolean>(false)
   const [userIntersted, setUserInterested] = useState<boolean>(false)
@@ -25,6 +25,7 @@ export default function RegionDrawer({region, onClose, userToken}: {region: (Reg
     if(region && userToken) {
       apiRegionAddInterest(region._id, userToken).then((resp: TokenResponse) => {
         setUserInterested(true)
+        onMarkInterest()
       })
     }
     else {

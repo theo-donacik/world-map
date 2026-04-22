@@ -105,6 +105,18 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
     defaultParentRegion && setParentRegion(defaultParentRegion);
   }
 
+  function updateLocalInterest(region: Region) {
+    for(var i in subregions) {
+      if(subregions[i] === region) {
+        let newSubregions = [...subregions]
+        let newRegion = {...newSubregions[i]}
+        newRegion.interestedUsers.push(userToken ? userToken : "")
+        newSubregions[i] = newRegion
+        setSubregions(newSubregions)
+      }
+    }
+  }
+
   return (
     <div>
       <div className='map-header'>
@@ -113,7 +125,7 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
         <NavToAdminBtn/>
       </div>
       <div style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
-        <RegionDrawer region={selectedRegion} onClose={() => setSelectedRegion(false)} userToken={userToken}/>
+        <RegionDrawer region={selectedRegion} onClose={() => setSelectedRegion(false)} userToken={userToken} onMarkInterest={() => {selectedRegion && updateLocalInterest(selectedRegion)}}/>
         {parentRegion && 
         <Application 
           resizeTo={window}

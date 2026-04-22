@@ -29,7 +29,7 @@ export function MapOverlay({src, setLoading}: {src: string, setLoading: (loading
             });
         })
         
-    }, [src]);
+    }, [src, setLoading]);
 
     return (
       <pixiSprite
