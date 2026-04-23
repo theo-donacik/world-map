@@ -10,7 +10,6 @@ import {
 import { useEffect, useState } from 'react'
 import { House } from 'react-bootstrap-icons'
 import GlobalTimer from '../components/GlobalTimer'
-import NavToAdminBtn from '../components/NavToAdminBtn'
 import RegionDrawer from '../components/RegionDrawer'
 import { apiCheckToken } from '../dao/discord'
 import { apiGetRegion } from '../dao/region'
@@ -18,6 +17,7 @@ import { apiGetTimer } from '../dao/timer'
 import { token_key } from '../util/constnats'
 import { Region, RegionResponse, TimerResponse, TokenResponse } from '../util/types'
 import MapContainer from './MapContainer'
+import AccountButton from '../components/AccountButton'
 
 extend({
   Graphics,
@@ -122,7 +122,7 @@ export default function MapApp({defaultParentRegionId} : {defaultParentRegionId:
       <div className='map-header'>
         <House onClick={goHome}/>
         <GlobalTimer time={timer}/>
-        <NavToAdminBtn/>
+        <AccountButton token={userToken}/>
       </div>
       <div style={{display: 'flex', justifyContent: "center", alignItems: "center"}}>
         <RegionDrawer region={selectedRegion} onClose={() => setSelectedRegion(false)} userToken={userToken} onMarkInterest={() => {selectedRegion && updateLocalInterest(selectedRegion)}}/>

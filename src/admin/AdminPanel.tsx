@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react"
-import { apiValidateAdminToken } from "../dao/login";
-import { admin_token_key } from "../util/constnats";
+import { apiValidateAdminToken } from "../dao/discord";
+import { token_key } from "../util/constnats";
 import AdminControls from "./AdminControls";
-import LoginPage from "./LoginPage";
 
 export default function AdminPanel() {
-  const [loggedIn, setLoggedIn] = useState<boolean>(false);
-
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
   useEffect(() => {
-    const adminToken = localStorage.getItem(admin_token_key)
+    const adminToken = localStorage.getItem(token_key)
     if(adminToken) {
       apiValidateAdminToken(adminToken)
       .then(() => {
-        setLoggedIn(true)
+        setIsAdmin(true)
       })
       .catch(() => {
         console.log("Invalid admin token")
-        localStorage.removeItem(admin_token_key)
       })
     }
   }, [])
@@ -25,7 +22,7 @@ export default function AdminPanel() {
   return (
     <div>
       {
-        loggedIn ? <AdminControls/> : <LoginPage setLoggedIn={setLoggedIn}/>
+        isAdmin ? <AdminControls/> : <div>Failed to validate admin status</div>
       }
     </div>
   );

@@ -39,3 +39,10 @@ export async function apiCheckToken(token: string) {
   });
   return r.data;
 }
+
+export async function apiValidateAdminToken(token: string) {
+  const r = await axios.post(DISCORD_LOGIN_API + '/validateAdmin', {
+    token: token 
+  });
+  return r.data;
+} 
