@@ -3,9 +3,10 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { apiRegionAddInterest } from '../dao/region';
 import { Region, TokenResponse } from '../util/types';
 import DiscordModal from './DiscordModal';
+import RegionDescription from './RegionDescription';
 
 export default function RegionDrawer({region, onClose, userToken, onMarkInterest}: {region: (Region | false), onClose: () => void, userToken: string | false, onMarkInterest: ()=>void}) {
-  const [lastRegion, setLastRegion] = useState<Partial<Region>>({name: "", description: ""});
+  const [lastRegion, setLastRegion] = useState<Region>();
   const [showDCLogin, setShowDCLogin] = useState<boolean>(false)
   const [userIntersted, setUserInterested] = useState<boolean>(false)
 
@@ -43,16 +44,12 @@ export default function RegionDrawer({region, onClose, userToken, onMarkInterest
         name={"bottom"}
       >
         <Offcanvas.Header closeButton>
-          <Offcanvas.Title>{region ? region.name : lastRegion.name}</Offcanvas.Title>
+          <Offcanvas.Title><b style={{fontSize: '30px'}}>{region ? region.mission : (lastRegion && lastRegion.mission)}</b></Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          {region ? region.description : lastRegion.description}
-          <button
-            className={'btn btn-primary interest-btn ' + (userIntersted ? "success" : "")}
-            onClick={handleInterest}
-          >
-            {userIntersted ?  "Interest noted" : "I'm Interested"  }
-          </button>
+          {region ? 
+          <RegionDescription region={region} interested={userIntersted} handleInterest={handleInterest}/> :
+          (lastRegion && <RegionDescription region={lastRegion} interested={userIntersted} handleInterest={() => {}}/>)}
         </Offcanvas.Body>
       </Offcanvas>
       <DiscordModal show={showDCLogin} setShow={setShowDCLogin}/>

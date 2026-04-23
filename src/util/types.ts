@@ -61,6 +61,9 @@ export type Region = {
   _id: string
   name: string
   description: string
+  mission: string
+  level: string 
+  reward: string
   vertices: number[]
   parentId: string
   interestedUsers: string[]
