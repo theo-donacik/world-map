@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Modal } from "react-bootstrap";
-import { apiUploadFile } from "../dao/files";
-import { FileKeyResponse, FileType } from "../util/types";
+import { apiUploadFile } from "../../dao/files";
+import { FileKeyResponse, FileType } from "../../util/types";
 import FilePicker from "./FilePicker";
 
 export default function CreateSubregionModal({show, setShow, onSave, title}: {show: boolean, setShow: (show: boolean) => void, onSave: (background: string, colorMap: string, dataCSV: string) => void, title: string}) {

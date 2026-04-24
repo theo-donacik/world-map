@@ -70,3 +70,21 @@ export async function apiRegionAddInterest(
   });
   return r.data;
 }
+
+export async function apiRegionSuccess(
+  id: string,
+) {
+  const r = await axios.post(REGION_API + '/success', {
+    id: id,
+  }, getAuthHeader());
+  return r.data;
+}
+
+export async function apiRegionFailure(
+  id: string,
+) {
+  const r = await axios.post(REGION_API + '/failure', {
+    id: id,
+  }, getAuthHeader());
+  return r.data;
+}

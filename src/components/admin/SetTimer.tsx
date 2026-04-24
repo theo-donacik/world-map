@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { Form, Stack } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { apiGetTimer, apiSetTimer } from "../dao/timer";
-import { TimerResponse } from "../util/types";
+import { apiGetTimer, apiSetTimer } from "../../dao/timer";
+import { TimerResponse } from "../../util/types";
 
 export default function SetTimer() {
   const [startDate, setStartDate] = useState(new Date());

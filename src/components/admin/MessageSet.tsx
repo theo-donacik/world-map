@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form, Stack } from "react-bootstrap";
-import { apiGetMessage, apiSetMessage } from "../dao/alertMessage";
-import { apiGetAllChannels, apiGetChannel, apiSetChannel } from "../dao/discord";
-import { AllChannelsResponse, ChannelResponse, DcChannel, MessageResponse } from "../util/types";
+import { apiGetAllThreadChannels, apiGetMessage, apiGetOrganizeChannel, apiSetMessage, apiSetOrganizeChannel } from "../../dao/discord";
+import { AllChannelsResponse, ChannelResponse, DcChannel, MessageResponse } from "../../util/types";
 import ChannelPicker from "./ChannelPicker";
 
 export default function MessageSet() {
@@ -12,7 +11,7 @@ export default function MessageSet() {
   const [currentChannel, setCurrentChannel] = useState<DcChannel>()
 
   useEffect(() => {
-    apiGetAllChannels()
+    apiGetAllThreadChannels()
     .then((resp: AllChannelsResponse) => {
       setChannels(resp.channels)
     })
@@ -22,7 +21,7 @@ export default function MessageSet() {
   }, []);
 
   useEffect(() => {
-    apiGetChannel()
+    apiGetOrganizeChannel()
     .then((resp: ChannelResponse) => {
       setCurrentChannel(resp.channel)
     })
@@ -33,13 +32,13 @@ export default function MessageSet() {
 
 
   useEffect(() => {
-      apiGetMessage()
-      .then((resp: MessageResponse) => {
-          setMessage(resp.alertMessage)
-        })
-        .catch(() => {
-          alert("Failed to get message")
-        });
+    apiGetMessage()
+    .then((resp: MessageResponse) => {
+        setMessage(resp.alertMessage)
+      })
+      .catch(() => {
+        alert("Failed to get message")
+      });
   }, [])
 
   function saveMessage() {        
@@ -57,9 +56,8 @@ export default function MessageSet() {
           alert("Failed to set message")
         });
 
-      apiSetChannel(currentChannel)
+      apiSetOrganizeChannel(currentChannel)
         .then((resp: ChannelResponse) => {
-          console.log("Set channel!")
         })
         .catch(() => {
           alert("Failed to set timer")
@@ -71,10 +69,10 @@ export default function MessageSet() {
   return (
     <div>
       <div>
-        Set Message / Channel
+        Set Organization Channel
       </div>
       <h5>
-        Use [name] and [link] to format message 
+        Use [name] to format default message 
       </h5>
       <Stack direction="horizontal" gap={3}>
         <ChannelPicker 

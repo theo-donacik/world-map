@@ -13,21 +13,21 @@ export default function DiscordModal({show, setShow}: {show: boolean, setShow: (
   
   return (
     <Modal
-        show={show}
-        onHide={() => {setShow(false)}}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Log In To Continue
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <DiscordLoginButton onClick={handleClick}/>
-        </Modal.Body>
-      </Modal>
+      show={show}
+      onHide={() => {setShow(false)}}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Log In To Continue
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+          <DiscordLoginButton onClick={handleClick}/>
+      </Modal.Body>
+    </Modal>
   )
 
 }

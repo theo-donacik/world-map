@@ -1,5 +1,5 @@
 import { Form } from "react-bootstrap";
-import { FileType } from "../util/types";
+import { FileType } from "../../util/types";
 
 export default function FilePicker({setFile, type}: {setFile: (f: File)=>void, type: FileType}) {
   const allowedExtentions: Record<FileType, string[]> = {

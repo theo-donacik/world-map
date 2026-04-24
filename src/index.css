@@ -164,6 +164,11 @@ code {
   height: 100%;
 }
 
+.channel-picker {
+  transform: translateY(-4px);
+  z-index: 99;
+}
+
 .offcanvas {
 
 }

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Nav } from "react-bootstrap";
 import { Person } from "react-bootstrap-icons";
-import { apiValidateAdminToken } from "../dao/discord";
-import { token_key } from "../util/constnats";
+import { apiValidateAdminToken } from "../../dao/discord";
+import { token_key } from "../../util/constnats";
 import DiscordModal from "./DiscordModal";
 
 export default function AccountButton({token}: {token: string | false}) {

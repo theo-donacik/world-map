@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import { apiRegionAddInterest } from '../dao/region';
-import { Region, TokenResponse } from '../util/types';
+import { apiRegionAddInterest } from '../../dao/region';
+import { Region, TokenResponse } from '../../util/types';
 import DiscordModal from './DiscordModal';
 import RegionDescription from './RegionDescription';
 

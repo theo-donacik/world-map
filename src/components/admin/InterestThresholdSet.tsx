@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Form, Stack } from "react-bootstrap";
-import { apiGetInterest, apiSetInterest } from "../dao/interest";
-import { InterestResponse } from "../util/types";
+import { apiGetInterest, apiSetInterest } from "../../dao/interest";
+import { InterestResponse } from "../../util/types";
 
 export default function InterestThresholdSet() {
   const [interestNum, setInterestNum] = useState<number>(1)

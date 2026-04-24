@@ -1,11 +1,3 @@
-export type AreaResponse = {
-  areas: [Area]
-}
-
-export type OneAreaResponse = {
-  area: Area
-}
-
 export type FileKeyResponse = {
   key: string
 }
@@ -46,15 +38,6 @@ export type RegionStateResponse = {
 export enum FileType {
   Image,
   CSV
-}
-
-export type Area = {
-  _id: string
-  name: string;
-  description: string;
-  inviteLink: string;
-  interestedUsers: string[];
-  fileKey?: string | null | undefined
 }
 
 export type Region = {

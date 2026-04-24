@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { apiGetImage } from "../dao/files";
-import { apiCreateExistingRegion, apiCreateNewRegion, apiDeleteRegion, apiGetRegion, apiSetDefaultRegionId } from "../dao/region";
-import { Region, RegionResponse, RegionStateResponse } from "../util/types";
+import { apiGetImage } from "../../dao/files";
+import { apiCreateExistingRegion, apiCreateNewRegion, apiDeleteRegion, apiGetRegion, apiSetDefaultRegionId } from "../../dao/region";
+import { Region, RegionResponse, RegionStateResponse } from "../../util/types";
 import CreateSubregionModal from "./CreateSubregionModal";
 import EditRegionBox from "./EditRegionBox";
 

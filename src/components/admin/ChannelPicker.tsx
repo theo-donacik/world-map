@@ -1,5 +1,5 @@
 import { Dropdown } from "react-bootstrap";
-import { DcChannel } from "../util/types";
+import { DcChannel } from "../../util/types";
 
 export default function ChannelPicker({currentChannel, setCurrentChannel, channels} : {currentChannel: DcChannel | undefined, setCurrentChannel: ((c: DcChannel) => void), channels: DcChannel[]}) {
 
@@ -13,7 +13,7 @@ export default function ChannelPicker({currentChannel, setCurrentChannel, channe
   }
 
   return (
-    <div>
+    <div className="channel-picker">
       <Dropdown onSelect={onChangeChannel}>
         <Dropdown.Toggle variant="success" id="dropdown-basic">
           {currentChannel ? currentChannel.name : "Select a Channel"}

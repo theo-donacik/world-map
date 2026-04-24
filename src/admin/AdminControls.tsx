@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import InterestThresholdSet from "../components/InterestThresholdSet";
-import MessageSet from "../components/MessageSet";
-import NavToMainBtn from "../components/NavToMainBtn";
-import RegionEdit from "../components/RegionEdit";
-import SetTimer from "../components/SetTimer";
+import InterestThresholdSet from "../components/admin/InterestThresholdSet";
+import MessageSet from "../components/admin/MessageSet";
+import NavToMainBtn from "../components/admin/NavToMainBtn";
+import RegionEdit from "../components/admin/RegionEdit";
+import SetTimer from "../components/admin/SetTimer";
+import UpdateChannelSet from "../components/admin/UpdateChannelSet";
 import { apiGetDefaultRegionId } from "../dao/region";
 import { RegionStateResponse } from "../util/types";
 
@@ -30,6 +31,7 @@ export default function AdminControls() {
         <SetTimer/>
         <InterestThresholdSet/>
         <MessageSet/>
+        <UpdateChannelSet />
       </div>
       <RegionEdit defaultRegionId={defaultRegion ?? ""}/>
     </div>

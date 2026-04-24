@@ -9,15 +9,15 @@ import {
 } from 'pixi.js'
 import { useEffect, useState } from 'react'
 import { House } from 'react-bootstrap-icons'
-import GlobalTimer from '../components/GlobalTimer'
-import RegionDrawer from '../components/RegionDrawer'
+import GlobalTimer from '../components/home/GlobalTimer'
+import RegionDrawer from '../components/home/RegionDrawer'
 import { apiCheckToken } from '../dao/discord'
 import { apiGetRegion } from '../dao/region'
 import { apiGetTimer } from '../dao/timer'
 import { token_key } from '../util/constnats'
 import { Region, RegionResponse, TimerResponse, TokenResponse } from '../util/types'
 import MapContainer from './MapContainer'
-import AccountButton from '../components/AccountButton'
+import AccountButton from '../components/home/AccountButton'
 
 extend({
   Graphics,

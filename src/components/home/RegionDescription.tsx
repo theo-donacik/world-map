@@ -1,4 +1,4 @@
-import { Region } from "../util/types";
+import { Region } from "../../util/types";
 
 export default function RegionDescription({region, interested, handleInterest}: {region: Region, interested: boolean, handleInterest: () => void}) {
   return (
