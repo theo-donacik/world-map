@@ -32,7 +32,6 @@ export default function InterestThresholdSet() {
           alert("Failed to set interest state")
         });
     }
-
   }
 
   return (

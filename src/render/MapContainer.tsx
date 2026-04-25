@@ -15,7 +15,7 @@ import { useState } from 'react'
 extend({
   Container,
   Graphics,
-  Sprite,
+  Sprite
 })
 
 export default function MapContainer({selectRegion, subregions, parentRegion}: {selectRegion: (region: Region) => void, subregions: Region[], parentRegion: Region}) {
@@ -30,9 +30,8 @@ export default function MapContainer({selectRegion, subregions, parentRegion}: {
       worldHeight={parentRegion.subregionHeight ?? 1000}
       setIsDragging={setIsDragging}
     >
-      <pixiContainer eventMode='passive'/>
+      <pixiContainer eventMode='passive'>
         <MapOverlay src={parentRegion.subregionImg ?? 'bad-default-value'} setLoading={setRegionLoading}/>
-
         <pixiContainer eventMode='passive' interactive={true}>
           {(subregions).map((region: Region) => {
             if(regionLoading) {return <></>}
@@ -42,6 +41,8 @@ export default function MapContainer({selectRegion, subregions, parentRegion}: {
                       selectRegion={selectRegion}/>)
           })}
         </pixiContainer>
+      </pixiContainer>
+
     </Viewport>
   )
 }

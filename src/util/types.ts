@@ -54,7 +54,8 @@ export type Region = {
   colorMapImg?: string | null | undefined,
   subregionImg?: string | null | undefined
   subregionWidth?: number | null | undefined
-  subregionHeight?: number | null | undefined
+  subregionHeight?: number | null | undefined,
+  cooldown: Date
 }
 
 export type DcChannel = {

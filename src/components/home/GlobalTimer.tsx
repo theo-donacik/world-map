@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
+import { getDistanceTimer, leadingZero, Timer, timerOver } from "../../util/timer";
 
 export default function GlobalTimer({time}: {time: Date}) {
-  const [distance, setDistance] = useState<number>(1)
+  const [distance, setDistance] = useState<Timer>()
 
   useEffect(() => {
     const updateTime = () => {
-      const d = time.getTime() - new Date().getTime()
-      if(d > 0) {
-        setDistance(time.getTime() - new Date().getTime()); 
-      }
-      else if (d <= 0){
-        setDistance(0)
-      }
+      setDistance(getDistanceTimer(time))
     }
 
     updateTime()
@@ -24,26 +19,22 @@ export default function GlobalTimer({time}: {time: Date}) {
   }, [time]);
 
 
-  const days = Math.floor(distance / 86400000);
-  const daysRemainder = distance % 86400000
 
-  const hours = Math.floor(daysRemainder / 3600000); 
-  const hoursRemainder = daysRemainder % 3600000; 
-
-  const mins = Math.floor(hoursRemainder / 60000); 
-  const minsRemainder = hoursRemainder % 60000; 
-
-  const seconds = Math.floor(minsRemainder / 1000); 
+  if(!distance) {
+    return (
+      <div></div>
+    )
+  }
 
   return (
-     <div className={"clock " + (distance <= 0 && "over")}>
-          <p className="clockPart">{days < 10 ? "0" + days : days}D</p>
+     <div className={"clock " + (timerOver(distance) && "over")}>
+          <p className="clockPart">{leadingZero(distance.days)}D</p>
           <p className="clockSpacer">:</p>
-          <p className="clockPart">{hours < 10 ? "0" + hours : hours}H</p>
+          <p className="clockPart">{leadingZero(distance.hours)}H</p>
           <p className="clockSpacer">:</p>
-          <p className="clockPart">{mins < 10 ? "0" + mins : mins}M</p>
+          <p className="clockPart">{leadingZero(distance.minutes)}M</p>
           <p className="clockSpacer">:</p>
-          <p className="clockPart">{seconds < 10 ? "0" + seconds : seconds}S</p>
+          <p className="clockPart">{leadingZero(distance.seconds)}S</p>
     </div>
   )
 }

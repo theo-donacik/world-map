@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, Modal, Stack } from 'react-bootstrap';
+import { Col, Form, Modal, Row, Stack } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { apiCreateExistingRegion, apiEditRegion, apiRegionFailure, apiRegionSuccess } from '../../dao/region';
 import { Region, RegionResponse } from "../../util/types";
@@ -11,10 +11,12 @@ export default function EditRegionBox({region, setRegion}: {region: Region, setR
   const [editState, setEditState] = useState<number>(0)
   const [succeedState, setSucceedState] = useState<boolean>(false)
   const [failState, setFailState] = useState<boolean>(false)
+  const [cooldownDays, setCooldownDays] = useState<number>(region.cooldown ? Math.ceil((new Date(region.cooldown).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : 0)
   const [currentRegion, setCurrentRegion] = useState<Region>(region);
 
   useEffect(() => {
     setCurrentRegion(region)
+    console.log(new Date(region.cooldown).getMilliseconds())
   }, [region])
 
 
@@ -25,10 +27,22 @@ export default function EditRegionBox({region, setRegion}: {region: Region, setR
       return 
     }
 
-    apiEditRegion(currentRegion)
+    const regionWithCooldown = {...currentRegion, cooldown: addDays(cooldownDays)}
+
+    apiEditRegion(regionWithCooldown)
       .then(() => {
         setEditState(2)
         setTimeout(() => setEditState(0), 3000)
+      })
+      .catch(() => {
+        alert("Failed to update region")
+      });
+  }
+
+  function saveCooldown() {
+    apiEditRegion({_id: currentRegion._id, cooldown: addDays(cooldownDays)})
+      .then(() => {
+        
       })
       .catch(() => {
         alert("Failed to update region")
@@ -41,6 +55,8 @@ export default function EditRegionBox({region, setRegion}: {region: Region, setR
       setSucceedState(true)
       setTimeout(() => setSucceedState(false), 3000)
       setUpdateModalShow(false)
+
+      saveCooldown()
     })
     .catch(() => {
       alert("Failed to update region status")
@@ -54,6 +70,8 @@ export default function EditRegionBox({region, setRegion}: {region: Region, setR
       setFailState(true)
       setTimeout(() => setFailState(false), 3000)
       setUpdateModalShow(false)
+
+      saveCooldown()
     })
     .catch(() => {
       alert("Failed to update region status")
@@ -71,6 +89,12 @@ export default function EditRegionBox({region, setRegion}: {region: Region, setR
       });
   }
 
+  function addDays(days: number) {
+    const result = new Date();
+    result.setDate(result.getDate() + days);
+    return result;
+  }
+
   return (
     <Card>
       <Card.Body>
@@ -84,6 +108,20 @@ export default function EditRegionBox({region, setRegion}: {region: Region, setR
           value={currentRegion.description}
           onChange={(e) => setCurrentRegion({...currentRegion, description: e.target.value})}
         />
+         <Row style={{fontSize: "15px", padding: "20px", textAlign: "left", alignContent: "center"}}>
+          <Col md={5}>Cooldown ends in</Col>
+          <Col md={4}>
+            <Form.Control
+              placeholder="Days"
+              type="number"
+              min={0}
+              value={cooldownDays}
+              width="50px"
+              onChange={(e) => setCooldownDays((Number)(e.target.value) ?? 0)}
+            />
+          </Col>
+          <Col md={2}>days</Col>
+        </Row>
         <div style={{fontSize: "18px", paddingBottom: "20px"}}>
           Interested Users: {currentRegion.interestedUsers.length}
         </div>
