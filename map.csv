@@ -1,4 +1,4 @@
-"r,g,b",name,description
-"237,77,150",Pinkland,This is a pink square (RGB corresponds to color map color)
-"77,78,237",Blue Bog,The blue rectangle next to it
-"80,237,77",Blob Palace,The green shape to test geometry
+"r,g,b",name,description,mission,level,rewards
+"237,77,150",Pinkland,This is a pink square (RGB corresponds to color map color), mission 1, 1, $500
+"77,78,237",Blue Bog,The blue rectangle next to it, mission 2, 8, 200 gold
+"80,237,77",Blob Palace,The green shape to test geometry, mission 3, 4, 18 XP
